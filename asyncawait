@@ -1,0 +1,104 @@
+
+// declare promises functions here
+
+const prm1 = (para1) => {
+
+    let promise = new Promise((resolve, reject) => {
+
+        setTimeout(() => {
+            resolve({ data: { para1: para1 } })
+        }, 100)
+    });
+    return promise;
+
+}
+
+const prm2 = (para1) => {
+
+    let promise = new Promise((resolve, reject) => {
+
+        setTimeout(() => {
+            resolve({ data: { para1: para1 } })
+        }, 100)
+    });
+    return promise;
+
+}
+const prm3 = (para1) => {
+
+    let promise = new Promise((resolve, reject) => {
+
+        setTimeout(() => {
+            resolve({ data: { para1: para1 } })
+            //reject('Error');
+        }, 100)
+    });
+    return promise;
+
+}
+
+// retrun promises
+const fn1 = () => {
+
+    return prm1('first').then((data1) => {
+
+        return prm2('second').then((data2) => {
+
+            return prm3('thired').then((data3) => {
+                return ({ data1, data2, data3 });
+            });
+        });
+    });
+}
+
+fn1().then((data) => {
+    console.log(JSON.stringify(data));
+}).catch((error) => {
+    console.log(error);
+})
+
+// promises and return
+const fn2 = () => {
+
+    let result = [];
+    return prm1('first').then((data) => {
+        result.push(data);
+        return prm2('second');
+    }).then((data) => {
+        result.push(data);
+        return prm3('thired');
+    }).then((data) => {
+        result.push(data);
+        return result;
+    });
+
+}
+
+fn2().then((data) => {
+    console.log(JSON.stringify(data));
+}).catch((error) => {
+    console.log(`Error : ${SON.stringify(data)}`);
+})
+
+
+// async/await
+const fn3 = async () => {
+
+    try {
+        let p1 = await prm1('first');
+        let p2 = await prm2('second');
+        let p3 = await prm3('third');
+        console.log(p1, p2, p1);
+        return ({ data: { p1, p2, p3 } });
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
+fn3().then((data) => {
+    console.log(data);
+}).catch((error) => {
+    console.log(error);
+})
+
